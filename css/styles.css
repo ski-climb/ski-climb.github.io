@@ -6,6 +6,7 @@
   min-height: 800px;
   width: 100%;
   z-index: 0;
+  margin-top: -122px;
 }
 
 .about-me {
@@ -45,8 +46,6 @@ nav a {
 }
 
 .footer {
-  /* content: ''; */
-  margin-top: 695px;
   background: linear-gradient(#5A240F, lightgrey 80%, #FFF);
   height: 500px;
 }
