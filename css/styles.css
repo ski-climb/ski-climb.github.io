@@ -45,6 +45,22 @@ nav a {
   background-color: #555;
 }
 
+.nav li a:hover,
+.nav li a:focus {
+  color: chocolate;
+  background-color: transparent;
+  border-bottom: solid 2px deepskyblue;
+}
+
+.nav li a:focus {
+  outline: none;
+}
+
+.navbar-brand:hover {
+  color: chocolate;
+  border-bottom: solid 2px deepskyblue;
+}
+
 .footer {
   background: linear-gradient(#5A240F, lightgrey 80%, #FFF);
   height: 500px;
