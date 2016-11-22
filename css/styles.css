@@ -1,13 +1,10 @@
-
 .cover {
   background: linear-gradient(#FFF, transparent 50%),
               linear-gradient(0deg, #5A240F, transparent 10%),
               url('../images/color_window.jpg') no-repeat center;
   background-size: cover;
-  height: 800px;
+  min-height: 800px;
   width: 100%;
-  position: absolute;
-  top: 0; 
   z-index: 0;
 }
 
