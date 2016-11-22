@@ -15,7 +15,7 @@
   font-family: 'Cardo', serif;
   font-size: 1.6em;
   width: 50%;
-  color: #333;
+  color: #111;
   margin-top: 250px;
 }
 
@@ -40,11 +40,11 @@ nav {
 }
 
 nav a {
-  color: #333;
+  color: #111;
 }
 
 .navbar-toggle .icon-bar {
-  background-color: #333;
+  background-color: #111;
 }
 
 .footer {
