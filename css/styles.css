@@ -77,6 +77,10 @@ nav a {
   margin-left: 20px;
 }
 
+.line {
+  display: inline-block;
+}
+
 .part-of-speech {
   margin-left: 20px;
 }
