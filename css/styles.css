@@ -62,17 +62,18 @@ nav a {
 }
 
 .footer {
+  height: 100px;
   background: linear-gradient(#5A240F, lightgrey 80%, #FFF);
+  margin: 50px 0;
+}
+
+.blend-footer {
   height: 500px;
 }
 
 .pronunciation {
   font-size: 0.7em;
   margin-left: 20px;
-}
-
-p.pronunciation {
-  margin-bottom: 10px;
 }
 
 .part-of-speech {
@@ -103,6 +104,9 @@ p.pronunciation {
   font-size: 2em;
 }
 
+p {
+  margin: 20px 0;
+}
 
 /* Media Queries */
 
