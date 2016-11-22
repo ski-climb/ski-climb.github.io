@@ -1,0 +1,72 @@
+
+.cover {
+  background: linear-gradient(#FFF, transparent 50%),
+              linear-gradient(0deg, #5A240F, transparent 10%),
+              url('../images/color_window.jpg') no-repeat center;
+  background-size: cover;
+  height: 800px;
+  width: 100%;
+  position: absolute;
+  top: 0; 
+  z-index: 0;
+}
+
+.about-me {
+  font-family: 'Cardo', serif;
+  font-size: 1.6em;
+  width: 50%;
+  color: #555;
+  margin-top: 250px;
+}
+
+.about-me p {
+  margin-bottom: 0;
+}
+
+img {
+  height: 80px;
+  border-radius: 50%;
+  margin-left: 20px;
+}
+
+nav {
+  font-size: 1.5em;
+  margin-top: 20px;
+  z-index: 100;
+}
+
+.navbar-brand {
+  font-size: 1.5em;
+}
+
+nav a {
+  color: #555;
+}
+
+.navbar-toggle .icon-bar {
+  background-color: #555;
+}
+
+.footer {
+  /* content: ''; */
+  margin-top: 695px;
+  background: linear-gradient(#5A240F, lightgrey 80%, #FFF);
+  height: 500px;
+}
+
+.pronunciation {
+  font-size: 0.7em;
+  margin-left: 20px;
+}
+
+p.pronunciation {
+  margin-bottom: 10px;
+}
+
+.part-of-speech {
+  margin-left: 20px;
+}
+
+.definition {
+  font-size: 0.7em;
+}
