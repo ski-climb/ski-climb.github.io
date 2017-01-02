@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Nicholas Erhardt</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cardo" rel="stylesheet">
+    <link rel="shortcut icon" href="images/glyphicons-242-flash.png">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <nav class="navbar  navbar-transparent">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-references" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">NE</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="my-references">
+          <ul class="nav navbar-nav">
+            <li>
+              <img src='images/nick_erhardt_sized.jpg' />
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Blog</a></li>
+            <li><a href="https://github.com/ski-climb" target="_blank">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/nicholas-erhardt" target="_blank">LinkedIn</a></li>
+            <li><a href="reference/Nicholas_Erhardt_resume_2016_November.pdf" target="_blank">Resume</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container testing-saves-time">
+      <h2 class="headline">Simple Rails app starter</h2>
+      <p class="text-center">31 December 2016</p>
+      <hr class="divider" />
+      <p>
+        Configuring a real Rails application can seemingly be done about a
+        million different ways.
+      </p>
+      <p>
+        What kind of database should be used?  What will be the database
+        cleaning philosophy (truncation or transaction)?  How about the 
+        test framework, RSpec or MiniTest?  How should I generate objects 
+        that I'll need for testing?  Should I use a front end framwork?  
+        Which one? 
+      </p>
+      <p>
+        Just to narrow the focus a bit, this post is going to be about how
+        to fire up a fairly basic rails application.  We won't be using any
+        scaffolding or getting into any (at all) business logic.  The aim
+        here is to create a completely blank slate that is ready to be
+        used.  I'm also going to assume that you already have the rails gem
+        installed.
+      </p>
+      <p>
+        I will also do my best to stay away from <em>should</em> as much as
+        possible.  This is not an argument for how a Rails app
+        <em>should</em> be setup.  It's just an example of one way to do
+        it.
+      </p>
+      <p>
+        For this example, I'll be using Rails 5.  That shouldn't have much
+        influence on our setup for the extent that we'll get in to.  I
+        mention it in case you are using a different version, your
+        configuration might look slightly different than the examples
+        below.
+      </p>
+      <p>
+        Let's dive in.
+      </p>
+      <pre class="prettyprint">
+        $ rails new my_new_project -T -d postgresql
+      </pre>
+      <p>
+        That's the command to generate a new rails project called
+        my_new_project.  The <code>-T</code> skips installing MiniTest
+        becauase I will use RSpec for this setup.  The <code>-d
+        postgresql</code> is the way to specify a PostgreSQL database.
+      </p>
+      <p>
+        Let's add some gems to the <code>Gemfile</code> that we'll need.
+      </p>
+      <pre class="prettyprint">
+        # Gemfile
+
+        gem 'rspec-rails'
+        gem 'capybara'
+        gem 'launchy'
+        gem 'shoulda-matchers'
+        gem 'factory_girl_rails'
+        gem 'database_cleaner'
+        gem 'faker'
+      </pre>
+      <p>
+        These gems should be added to the <code>:developmet</code> and
+        <code>:test</code> groups.  At this point, that group might look
+        like the following:
+      </p>
+      <pre class="prettyprint">
+        # Gemfile
+
+        group :development, :test do
+          # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+          gem 'byebug', platform: :mri
+          gem 'rspec-rails'
+          gem 'capybara'
+          gem 'launchy'
+          gem 'shoulda-matchers'
+          gem 'factory_girl_rails'
+          gem 'database_cleaner'
+          gem 'faker'
+        end
+      </pre>
+      <p>
+        The <code>rspec-rails</code> gem will include the <a
+        href="https://github.com/rspec/rspec-rails", target:
+        "_blank">RSpec</a> test framework (since we opted not to use the
+         MiniTest framework which ships with Rails).  <code>capybara</code>
+         will be used for <a
+        href="https://github.com/teamcapybara/capybara">feature tests</a>.
+      </p>
+      <p>
+        <code>launchy</code> provides a <a
+        href="https://github.com/copiousfreetime/launchy">handy little
+        tool</a> when running
+        feature tests.  It allows you to view the page which is being visited
+        during the test by including the line:
+        <code>save_and_open_page</code>.  That will open the page (without
+        styling) in your browser as the test is running.
+      </p>
+      <p>
+        The <code>shoulda-matchers</code> <a
+        href="https://github.com/thoughtbot/shoulda-matchers">gem</a>
+        provides one-liners which match up (see what I did there?) with 
+        Active Model, Active Record, and Active Controller for testing.
+      </p>
+      <p>
+        <code>factory_girl_rails</code> <a
+        href="https://github.com/thoughtbot/factory_girl_rails">provides</a> 
+        a way to define fixture
+        objects that are used during testing.
+      </p>
+      <p>
+        <code>database_cleaner</code> <a
+        href="https://github.com/DatabaseCleaner/database_cleaner">provides</a>
+        a set of strategies for cleaning your application database.
+      </p>
+      <p>
+        The <code>faker</code> <a
+        href="https://github.com/stympy/faker">gem</a> provides a quick way
+        to generate fake data.  This proves to be useful when it's time to
+        seed the development or test database with real-ish data, similar
+        to the way a designer might use lorem ipsum.
+      </p>
+      <p>
+        Note for a moment that some gem names use underscores (e.g. 
+        <code>database_cleaner</code>) while others choose to use dashes
+        (e.g. <code>shoulda-matchers</code>).
+      </p>
+      <p>
+        Now that we have specified the gems, it's time to bundle and run
+        the rspec generator.
+      </p>
+      <pre class="prettyprint">
+        $ bundle install
+        $ rails generate rspec:install
+      </pre>
+      <p>
+        Now the gems are in place, and we've bundled.  However, there is
+        still a reasonable amount of configuration left.  
+      </p>
+      <p>
+        For starters, let's create the directories where our model and
+        feature tests will go as well as the support directory.
+      </p>
+      <pre class="prettyprint">
+        $ mkdir spec/models/ spec/features/ spec/support/
+      </pre>
+      <p>
+        Let's create the directory where the factories will live as well.
+      </p>
+      <pre class="prettyprint">
+        $ mkdir spec/factories/
+      </pre>
+      <p>
+        Also, we need to include the methods which
+        <code>FactoryGirl</code> gives us in our tests by creating a file
+        called: <code>spec/support/factory_girl.rb</code>
+      </p>
+      <pre class="prettyprint">
+        # spec/support/factory_girl.rb
+
+        RSpec.configure do |config|
+          config.include FactoryGirl::Syntax::Methods
+        
+          config.before(:suite) do
+            begin
+              DatabaseCleaner.start
+              FactoryGirl.lint
+            ensure
+              DatabaseCleaner.clean
+            end
+          end
+        end
+      </pre>
+      <p>
+        And to make sure <strong>that</strong> file is getting included, we
+        need to <strong>uncomment</strong> a line in our <code>spec/rails_helper.rb</code>.
+      </p>
+      <pre class="prettyprint">
+        # spec/rails_helper.rb
+
+        Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+      </pre>
+      <p>
+        Finally, let's add the front-end framework, <a
+        href="http://getbootstrap.com/getting-started/">Bootstrap</a>.
+        We'll also include the gem <code>bootstrap_form</code> so that we
+        can use Bootstrap styling in forms as well.
+      </p>
+      <p>
+        Including Bootstrap requires a couple steps.  First we'll add the following gems
+        to the <code>Gemfile</code>.  Don't forget to <code>bundle
+        install</code> afterwards.  And note the non-uniform use of
+        dashes vs. underscores.
+      </p>
+      <pre class="prettyprint">
+        # Gemfile
+
+        gem 'bootstrap-sass'
+        gem 'bootstrap_form'
+      </pre>
+      <p>
+        Next, change the file
+        <code>app/assets/stylesheets/application.css</code> to
+        <code>app/assets/stylesheets/application.scss</code> (that's a
+        <strong>.css</strong> to <strong>.scss</strong> as the file type).
+      </p>
+      <p>
+        Also, create a file called
+        <code>app/assets/stylesheets/screen.scss</code> where all of the
+        application-specific (i.e. not provided by a third-party library like
+        Bootstrap) will live.
+      </p>
+      <pre class="prettyprint">
+        $ touch app/assets/stylesheets/screen.scss
+      </pre>
+      <p>
+        In the above <code>screen.scss</code> file, include the following:
+      </p>
+      <pre class="prettyprint">
+        # app/assets/stylesheets/screen.scss
+
+        @import "bootstrap-sprockets";
+        @import "bootstrap";
+      </pre>
+      <p>
+        Still installing Bootstrap here...  Finally we'll add the following
+        line to <code>app/assets/javascripts/application.js</code>:
+      </p>
+      <pre class="prettyprint">
+        # app/assets/javascripts/application.js
+
+        //= require bootstrap-sprockets
+      </pre>
+      <p>
+        That line should go just underneath where jquery is required, so
+        the <code>application.js</code> might look similar to this:
+      </p>
+      <pre class="prettyprint">
+        # app/assets/javascripts/application.js
+
+        //= require jquery
+        //= require bootstrap-sprockets
+        //= require jquery_ujs
+      </pre>
+      <p>
+        And we're done!
+      </p>
+      <p>
+        This boilerplate starts us off with a Rails application that uses
+        Capybara, RSpec and has a PostgreSQL database.  We're using FactoryGirl to
+        create test fixtures and Faker to come up with fake data.
+      </p>
+      <p>
+        In addition, we're ready to take advantage of Bootstrap for
+        styling, including javascript.
+      </p>
+      <p>
+        There is no one-size-fits-all configuration for setting up a Rails
+        application, but this is one way to go about it.
+      </p>
+      <p>
+        Thanks for reading.
+      </p>
+    </div>
+
+    <div class="footer"></div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

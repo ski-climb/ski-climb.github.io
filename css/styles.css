@@ -134,3 +134,7 @@ p {
     width: 95%;
   }
 }
+
+pre {
+  padding-top: 20px !important;
+}
