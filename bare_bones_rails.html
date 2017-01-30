@@ -236,6 +236,19 @@
         Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
       </pre>
       <p>
+        While we're in the <code>rails_helper.rb</code>, let's also
+        configure our tests to use the shoulda-matchers syntax.
+      </p>
+      <pre class="prettyprint">
+        # spec/rails_helper.rb
+
+        Shoulda::Matchers.configure do |config|
+          config.integrate do |with|
+          with.test_framework :rspec
+          with.library :rails
+        end
+      </pre>
+      <p>
         Finally, let's add the front-end framework, <a
         href="http://getbootstrap.com/getting-started/">Bootstrap</a>.
         We'll also include the gem <code>bootstrap_form</code> so that we
