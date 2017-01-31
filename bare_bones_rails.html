@@ -249,6 +249,17 @@
         end
       </pre>
       <p>
+        Sometimes it's nice to eliminate the part of the stacktrace which
+        shows the gems.  This is one way to do that.  In
+        /spec/spec_helper.rb, include:
+      </p>
+      <pre class="prettyprint">
+        # spec/spec_helper.rb
+
+        # This will eliminate the part of the stacktrace which lists the errors in the gems
+          config.backtrace_exclusion_patterns << /\.rvm\/gems/
+      </pre>
+      <p>
         Finally, let's add the front-end framework, <a
         href="http://getbootstrap.com/getting-started/">Bootstrap</a>.
         We'll also include the gem <code>bootstrap_form</code> so that we
